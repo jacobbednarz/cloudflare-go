@@ -11,60 +11,106 @@ import (
 )
 
 const (
-	// RulesetKindRoot is definition for an account level ruleset.
-	RulesetKindRoot RulesetKind = "root"
-
-	// RulesetKindCustom is the user defined rulesets.
-	RulesetKindCustom RulesetKind = "custom"
-
-	// RulesetKindManaged denotes Cloudflare managed rulesets.
+	RulesetKindCustom  RulesetKind = "custom"
 	RulesetKindManaged RulesetKind = "managed"
+	RulesetKindRoot    RulesetKind = "root"
+	RulesetKindSchema  RulesetKind = "schema"
+	RulesetKindZone    RulesetKind = "zone"
 
-	// RulesetKindSchema denotes a schema ruleset.
-	RulesetKindSchema RulesetKind = "schema"
-
-	// RulesetKindZone expresses a zone level ruleset.
-	RulesetKindZone RulesetKind = "zone"
-
-	// RulesetPhaseDDoSL7 phase runs during DDoS mitigation stage.
-	RulesetPhaseDDoSL7 RulesetPhase = "ddos_l7"
-
-	// RulesetPhaseMagicTransit phase is invoked when traffic is routed via Magic
-	// Transit.
-	RulesetPhaseMagicTransit RulesetPhase = "magic_transit"
-
-	// RulesetPhaseHTTPRequestMain runs in the primary part of the HTTP request.
-	RulesetPhaseHTTPRequestMain RulesetPhase = "http_request_main"
-
-	// RulesetPhaseHTTPRequestFirewallCustom runs on custom firewall rulesets.
-	RulesetPhaseHTTPRequestFirewallCustom RulesetPhase = "http_request_firewall_custom"
-
-	// RulesetPhaseHTTPRequestFirewallManaged runs for Cloudflare managed rulesets.
+	RulesetPhaseDDoSL7                     RulesetPhase = "ddos_l7"
+	RulesetPhaseHTTPRequestFirewallCustom  RulesetPhase = "http_request_firewall_custom"
 	RulesetPhaseHTTPRequestFirewallManaged RulesetPhase = "http_request_firewall_managed"
+	RulesetPhaseHTTPRequestMain            RulesetPhase = "http_request_main"
+	RulesetPhaseHTTPRequestSanitize        RulesetPhase = "http_request_sanitize"
+	RulesetPhaseHTTPRequestTransform       RulesetPhase = "http_request_transform"
+	RulesetPhaseMagicTransit               RulesetPhase = "magic_transit"
 
-	// RulesetPhaseHTTPRequestTransform is performed at the HTTP request
-	// transformation phase.
-	RulesetPhaseHTTPRequestTransform RulesetPhase = "http_request_transform"
+	RulesetRuleActionBlock                RulesetRuleAction = "block"
+	RulesetRuleActionChallenge            RulesetRuleAction = "challenge"
+	RulesetRuleActionDDoSDynamic          RulesetRuleAction = "ddos_dynamic"
+	RulesetRuleActionExecute              RulesetRuleAction = "execute"
+	RulesetRuleActionForceConnectionClose RulesetRuleAction = "force_connection_close"
+	RulesetRuleActionJSChallenge          RulesetRuleAction = "js_challenge"
+	RulesetRuleActionLog                  RulesetRuleAction = "log"
+	RulesetRuleActionRewrite              RulesetRuleAction = "rewrite"
+	RulesetRuleActionScore                RulesetRuleAction = "score"
+	RulesetRuleActionSkip                 RulesetRuleAction = "skip"
 
-	// RulesetPhaseHTTPRequestSanitize is run during the HTTP request sanitisation
-	// phase.
-	RulesetPhaseHTTPRequestSanitize RulesetPhase = "http_request_sanitize"
+	RulesetActionParameterProductBIC           RulesetActionParameterProduct = "bic"
+	RulesetActionParameterProductHOT           RulesetActionParameterProduct = "hot"
+	RulesetActionParameterProductRateLimit     RulesetActionParameterProduct = "ratelimit"
+	RulesetActionParameterProductSecurityLevel RulesetActionParameterProduct = "securityLevel"
+	RulesetActionParameterProductUABlock       RulesetActionParameterProduct = "uablock"
+	RulesetActionParameterProductWAF           RulesetActionParameterProduct = "waf"
+	RulesetActionParameterProductZoneLockdown  RulesetActionParameterProduct = "zonelockdown"
 
-	// RulesetRuleActionSkip represents the "skip" action.
-	RulesetRuleActionSkip RulesetRuleAction = "skip"
-
-	// RulesetRuleActionBlock represents the "block" action.
-	RulesetRuleActionBlock RulesetRuleAction = "block"
-
-	// RulesetRuleActionJSChallenge represents the "js_challenge" action.
-	RulesetRuleActionJSChallenge RulesetRuleAction = "js_challenge"
-
-	// RulesetRuleActionChallenge represents the "challenge" action.
-	RulesetRuleActionChallenge RulesetRuleAction = "challenge"
-
-	// RulesetRuleActionLog represents the "log" action.
-	RulesetRuleActionLog RulesetRuleAction = "log"
+	RulesetRuleActionParametersHTTPHeaderOperationRemove RulesetRuleActionParametersHTTPHeaderOperation = "remove"
+	RulesetRuleActionParametersHTTPHeaderOperationSet    RulesetRuleActionParametersHTTPHeaderOperation = "set"
 )
+
+// RulesetKindValues exposes all the available `RulesetKind` values as a slice
+// of strings.
+func RulesetKindValues() []string {
+	return []string{
+		string(RulesetKindCustom),
+		string(RulesetKindManaged),
+		string(RulesetKindRoot),
+		string(RulesetKindSchema),
+		string(RulesetKindZone),
+	}
+}
+
+// RulesetPhaseValues exposes all the available `RulesetPhase` values as a slice
+// of strings.
+func RulesetPhaseValues() []string {
+	return []string{
+		string(RulesetPhaseDDoSL7),
+		string(RulesetPhaseHTTPRequestFirewallCustom),
+		string(RulesetPhaseHTTPRequestFirewallManaged),
+		string(RulesetPhaseHTTPRequestMain),
+		string(RulesetPhaseHTTPRequestSanitize),
+		string(RulesetPhaseHTTPRequestTransform),
+		string(RulesetPhaseMagicTransit),
+	}
+}
+
+// RulesetRuleActionValues exposes all the available `RulesetRuleAction` values
+// as a slice of strings.
+func RulesetRuleActionValues() []string {
+	return []string{
+		string(RulesetRuleActionBlock),
+		string(RulesetRuleActionChallenge),
+		string(RulesetRuleActionDDoSDynamic),
+		string(RulesetRuleActionExecute),
+		string(RulesetRuleActionForceConnectionClose),
+		string(RulesetRuleActionJSChallenge),
+		string(RulesetRuleActionLog),
+		string(RulesetRuleActionRewrite),
+		string(RulesetRuleActionScore),
+		string(RulesetRuleActionSkip),
+	}
+}
+
+// RulesetActionParameterProductValues exposes all the available
+// `RulesetActionParameterProduct` values as a slice of strings.
+func RulesetActionParameterProductValues() []string {
+	return []string{
+		string(RulesetActionParameterProductBIC),
+		string(RulesetActionParameterProductHOT),
+		string(RulesetActionParameterProductRateLimit),
+		string(RulesetActionParameterProductSecurityLevel),
+		string(RulesetActionParameterProductUABlock),
+		string(RulesetActionParameterProductWAF),
+		string(RulesetActionParameterProductZoneLockdown),
+	}
+}
+
+func RulesetRuleActionParametersHTTPHeaderOperationValues() []string {
+	return []string{
+		string(RulesetRuleActionParametersHTTPHeaderOperationRemove),
+		string(RulesetRuleActionParametersHTTPHeaderOperationSet),
+	}
+}
 
 // RulesetRuleAction defines a custom type that is used to express allowed
 // values for the rule action.
@@ -74,25 +120,68 @@ type RulesetRuleAction string
 type RulesetKind string
 
 // RulesetPhase is the custom type for defining at what point the ruleset will
-// be applied and limited to expected values.
+// be applied in the request pipeline.
 type RulesetPhase string
 
-// Ruleset contains the structure of a Ruleset.
+// RulesetActionParameterProduct is the custom type for defining what products
+// can be used within the action parameters of a ruleset.
+type RulesetActionParameterProduct string
+
+// RulesetRuleActionParametersHTTPHeaderOperation defines available options for
+// HTTP header operations in actions.
+type RulesetRuleActionParametersHTTPHeaderOperation string
+
+// Ruleset contains the structure of a Ruleset. Using `interface{}` for Kind and
+// Phase is a developer nicety to support downstream clients like Terraform who
+// doesn't really have a strong and expansive type system.
 type Ruleset struct {
 	ID          string        `json:"id,omitempty"`
 	Name        string        `json:"name"`
 	Description string        `json:"description"`
-	Kind        string        `json:"kind"`
+	Kind        interface{}   `json:"kind"`
 	Version     string        `json:"version,omitempty"`
 	LastUpdated *time.Time    `json:"last_updated,omitempty"`
-	Phase       RulesetPhase  `json:"phase"`
+	Phase       interface{}   `json:"phase"`
 	Rules       []RulesetRule `json:"rules"`
 }
 
 // RulesetRuleActionParameters specifies the action parameters for a Ruleset
 // rule.
 type RulesetRuleActionParameters struct {
-	Ruleset string `json:"ruleset,omitempty"`
+	ID        string                                           `json:"id,omitempty"`
+	Ruleset   string                                           `json:"ruleset,omitempty"`
+	Increment int                                              `json:"increment,omitempty"`
+	URI       RulesetRuleActionParametersURI                   `json:"uri,omitempty"`
+	Headers   map[string]RulesetRuleActionParametersHTTPHeader `json:"headers,omitempty"`
+	Products  []interface{}                                    `json:"products,omitempty"`
+}
+
+// RulesetRuleActionParametersURI holds the URI struct for an action parameter.
+type RulesetRuleActionParametersURI struct {
+	Path   RulesetRuleActionParametersURIPath  `json:"path,omitempty"`
+	Query  RulesetRuleActionParametersURIQuery `json:"query,omitempty"`
+	Origin bool                                `json:"origin,omitempty"`
+}
+
+// RulesetRuleActionParametersURIPath holds the path specific portion of a URI
+// action parameter.
+type RulesetRuleActionParametersURIPath struct {
+	Expression string `json:"expression,omitempty"`
+}
+
+// RulesetRuleActionParametersURIQuery holds the query specific portion of a URI
+// action parameter.
+type RulesetRuleActionParametersURIQuery struct {
+	Value      string `json:"value,omitempty"`
+	Expression string `json:"expression,omitempty"`
+}
+
+// RulesetRuleActionParametersHTTPHeader is the definition for define action
+// parameters that involve HTTP headers.
+type RulesetRuleActionParametersHTTPHeader struct {
+	Operation  string `json:"operation,omitempty"`
+	Value      string `json:"value,omitempty"`
+	Expression string `json:"expression,omitempty"`
 }
 
 // RulesetRule contains information about a single Ruleset Rule.
@@ -106,6 +195,8 @@ type RulesetRule struct {
 	LastUpdated      *time.Time                   `json:"last_updated,omitempty"`
 	Ref              string                       `json:"ref,omitempty"`
 	Enabled          bool                         `json:"enabled"`
+	Categories       []string                     `json:"categories,omitempty"`
+	ScoreThreshold   int                          `json:"score_threshold,omitempty"`
 }
 
 // UpdateRulesetRequest is the representation of a Ruleset update.
